@@ -1,5 +1,6 @@
 package com.project.reactor.service.impl;
 
+import com.project.reactor.exception.TodoNotFoundException;
 import com.project.reactor.model.Todo;
 import com.project.reactor.repository.TodoRepository;
 import com.project.reactor.service.ITodoService;
@@ -25,7 +26,7 @@ public class TodoServiceImpl implements ITodoService {
     @Override
     public Mono<Todo> findById(String id) {
 
-        return todoRepository.findById(id).switchIfEmpty(Mono.error(new RuntimeException("Todo no encontrado")));
+        return todoRepository.findById(id).switchIfEmpty(Mono.error(new TodoNotFoundException(id)));
 
     }
 
